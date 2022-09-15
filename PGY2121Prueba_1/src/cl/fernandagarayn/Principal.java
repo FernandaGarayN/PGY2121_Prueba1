@@ -41,6 +41,8 @@ public class Principal {
         Suscripcion suscripcion3 = nuevaSuscripcion(folio, usuario3, "2021/05/23", correlativoVenta++);
         suscripcion3.agregarClubDeportivo(club3);
         suscripcion3.agregarClubDeportivo(club2);
+        
+        
        
     }
     
@@ -85,6 +87,7 @@ public class Principal {
         try {
             return sdf.parse(fecha);
         } catch (ParseException ex) {
+            System.out.println("Fecha no valida: " + fecha); 
             return null;
         }
     }
@@ -99,6 +102,7 @@ public class Principal {
                 return fechaNacimiento;
             }
         }
+        System.out.println("Fecha de nacimiento no valido: " + fecha); 
         return null;
     }
 
@@ -106,6 +110,7 @@ public class Principal {
         if(nombreUsuario != null && nombreUsuario.length() > 4){
             return nombreUsuario;
         }
+        System.out.println("Nombre de usuario no valida: " + nombreUsuario); 
         return null;
     }
 
@@ -114,6 +119,7 @@ public class Principal {
                 && (email.endsWith(".com") || email.endsWith(".cl"))){
             return email;
         }
+        System.out.println("Email no valido: " + email); 
         return null;
     }
 
@@ -121,6 +127,7 @@ public class Principal {
         if(contrasena != null && contrasena.length() > 5){
             return contrasena;
         }
+        System.out.println("Constrasena no valida: " + contrasena);  
         return null;
     }
 
@@ -128,6 +135,7 @@ public class Principal {
         if(telefono != null && telefono.length() > 7 && telefono.startsWith("56")){
             return Integer.parseInt(telefono);
         }
+        System.out.println("Telefono no valido: " + telefono);       
         return 0;
     }
 }

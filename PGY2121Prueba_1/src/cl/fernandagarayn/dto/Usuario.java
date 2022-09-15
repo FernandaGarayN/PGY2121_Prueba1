@@ -22,7 +22,9 @@ public class Usuario {
     }
 
     public void setID(int ID) {
-        this.ID = ID;
+        if(ID > -1) {
+            this.ID = ID;
+        }
     }
 
     public String getNombreUsuario() {
@@ -86,22 +88,30 @@ public class Usuario {
     }
 
     public void setTelefono(int telefono) {
-        this.telefono = telefono;
+        if(telefono > -1){
+            this.telefono = telefono;
+        }
     }
 
     public void validarRut(int rut, char dv) {
-        boolean validacion = false;
-        int m = 0, s = 1;
-        for (; rut != 0; rut /= 10) {
-            s = (s + rut % 10 * (9 - m++ % 6)) % 11;
-        }
-        if (dv == (char) (s != 0 ? s + 47 : 75)) {
-            validacion = true;
-        }
-        
-        if (validacion) {
-            setRut(rut);
-            setDv(dv);
+        if(rut > -1) {
+            boolean validacion = false;
+            int m = 0, s = 1;
+            for (; rut != 0; rut /= 10) {
+                s = (s + rut % 10 * (9 - m++ % 6)) % 11;
+            }
+            if (dv == (char) (s != 0 ? s + 47 : 75)) {
+                validacion = true;
+            }
+
+            if (validacion) {
+                setRut(rut);
+                setDv(dv);
+            } else {  
+                System.out.println("Rut no valido: " + rut + "-" + dv);
+            }
+        } else {
+            System.out.println("Rut no valido: " + rut + "-" + dv);
         }
     }
     

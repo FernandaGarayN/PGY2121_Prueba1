@@ -19,7 +19,9 @@ public class Suscripcion {
     }
 
     public void setNumero(int numero) {
-        this.numero = numero;
+        if(numero > -1){
+            this.numero = numero;
+        }
     }
 
     public Usuario getUsuario() {
