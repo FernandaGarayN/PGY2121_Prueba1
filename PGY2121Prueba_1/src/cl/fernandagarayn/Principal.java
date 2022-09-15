@@ -51,8 +51,9 @@ public class Principal {
         suscripcion3.agregarClubDeportivo(club3);
         suscripcion3.agregarClubDeportivo(club2);
         
-        
-       
+        System.out.println(suscripcion1);
+        System.out.println(suscripcion2);
+        System.out.println(suscripcion3);
     }
     
     public static Usuario nuevoUsuario(int ID, String nombreCompleto, int rut, char dv, String fechaNacimiento, String telefono, String nombreUsuario, String email, String contrasena){

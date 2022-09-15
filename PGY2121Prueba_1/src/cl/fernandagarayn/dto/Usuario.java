@@ -119,4 +119,8 @@ public class Usuario {
     public String toString() {
         return "Usuario{" + "ID=" + ID + ", nombreCompleto=" + nombreCompleto + ", rut=" + rut + ", dv=" + dv + ", fechaNacimiento=" + fechaNacimiento + ", telefono=" + telefono + ", nombreUsuario=" + nombreUsuario + ", email=" + email + ", contrasena=" + contrasena + '}';
     }
+
+    String paraSuscripcion() {
+        return getNombreUsuario() + ": " +getNombreCompleto();
+    }
 }

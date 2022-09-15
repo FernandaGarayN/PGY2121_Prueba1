@@ -74,4 +74,9 @@ public class Suscripcion {
         this.equipos += club.paraSuscripcion();
         this.abonoTotal += club.getValorSuscripcion();
     }
+
+    @Override
+    public String toString() {
+        return "Suscripcion{" + "numero=" + numero + ", usuario=" + usuario.paraSuscripcion() + ", fechaInicio=" + fechaInicio + ", abonoTotal=" + abonoTotal + ", equipos=" + equipos + ", correlativoVenta=" + correlativoVenta + '}';
+    }
 }
