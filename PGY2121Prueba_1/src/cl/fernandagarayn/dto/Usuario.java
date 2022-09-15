@@ -1,5 +1,7 @@
 package cl.fernandagarayn.dto;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -32,7 +34,7 @@ public class Usuario {
     }
 
     public void setNombreUsuario(String nombreUsuario) {
-        this.nombreUsuario = nombreUsuario;
+        this.nombreUsuario = validarNombreUsuario(nombreUsuario);
     }
 
     public String getEmail() {
@@ -40,7 +42,7 @@ public class Usuario {
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.email = validarEmail(email);
     }
 
     public String getContrasena() {
@@ -48,7 +50,7 @@ public class Usuario {
     }
 
     public void setContrasena(String contrasena) {
-        this.contrasena = contrasena;
+        this.contrasena = validarContrasena(contrasena);
     }
 
     public String getNombreCompleto() {
@@ -79,17 +81,18 @@ public class Usuario {
         return fechaNacimiento;
     }
 
-    public void setFechaNacimiento(Date fechaNacimiento) {
-        this.fechaNacimiento = fechaNacimiento;
+    public void setFechaNacimiento(String fechaNacimiento) {
+        this.fechaNacimiento = validarFechaNacimiento(fechaNacimiento);
     }
 
     public int getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(int telefono) {
-        if(telefono > -1){
-            this.telefono = telefono;
+    public void setTelefono(String telefono) {
+        int tel = validarTelefono(telefono);
+        if(tel > -1){
+            this.telefono = tel;
         }
     }
 
@@ -122,5 +125,62 @@ public class Usuario {
 
     String paraSuscripcion() {
         return getNombreUsuario() + ": " +getNombreCompleto();
+    }
+    
+    private Date validarFechaNacimiento(String fecha){
+        Date fechaNacimiento = validarFecha(fecha);
+        if(fechaNacimiento != null){
+            Date actual = new Date();
+            int anioNacimiento = fechaNacimiento.getYear();
+            int anioActual = actual.getYear();
+            if(anioActual - anioNacimiento > 17) {
+                return fechaNacimiento;
+            }
+        }
+        System.out.println("Fecha de nacimiento no valido: " + fecha); 
+        return null;
+    }
+    
+    private Date validarFecha(String fecha){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+        try {
+            return sdf.parse(fecha);
+        } catch (ParseException ex) {
+            System.out.println("Fecha no valida: " + fecha); 
+            return null;
+        }
+    }
+
+    private String validarNombreUsuario(String nombreUsuario) {
+        if(nombreUsuario != null && nombreUsuario.length() > 3){
+            return nombreUsuario;
+        }
+        System.out.println("Nombre de usuario no valida: " + nombreUsuario); 
+        return null;
+    }
+
+    private int validarTelefono(String telefono) {
+        if(telefono != null && telefono.length() > 7 && telefono.startsWith("56")){
+            return Integer.parseInt(telefono);
+        }
+        System.out.println("Telefono no valido: " + telefono);       
+        return 0;
+    }
+
+    private String validarContrasena(String contrasena) {
+        if(contrasena != null && contrasena.length() > 5){
+            return contrasena;
+        }
+        System.out.println("Constrasena no valida: " + contrasena);  
+        return null;
+    }
+
+    private static String validarEmail(String email) {
+        if(email != null && email.indexOf("@") > 0
+                && (email.endsWith(".com") || email.endsWith(".cl"))){
+            return email;
+        }
+        System.out.println("Email no valido: " + email); 
+        return null;
     }
 }

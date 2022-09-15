@@ -61,11 +61,11 @@ public class Principal {
         usuario.setID(ID);
         usuario.setNombreCompleto(nombreCompleto);
         usuario.validarRut(rut, dv);
-        usuario.setFechaNacimiento(validarFechaNacimiento(fechaNacimiento));
-        usuario.setTelefono(validarTelefono(telefono));
-        usuario.setNombreUsuario(validarNombreUsuario(nombreUsuario));
-        usuario.setEmail(validarEmail(email));
-        usuario.setContrasena(validarContrasena(contrasena));
+        usuario.setFechaNacimiento(fechaNacimiento);
+        usuario.setTelefono(telefono);
+        usuario.setNombreUsuario(nombreUsuario);
+        usuario.setEmail(email);
+        usuario.setContrasena(contrasena);
         return usuario;
     }
     
@@ -87,65 +87,8 @@ public class Principal {
         Suscripcion suscripcion = new Suscripcion();
         suscripcion.setNumero(numero);
         suscripcion.setUsuario(usuario);
-        suscripcion.setFechaInicio(validarFecha(fechaInicio));
+        suscripcion.setFechaInicio(fechaInicio);
         suscripcion.setCorrelativoVenta(correlativo);
         return suscripcion;
-    }
-    
-    private static Date validarFecha(String fecha){
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-        try {
-            return sdf.parse(fecha);
-        } catch (ParseException ex) {
-            System.out.println("Fecha no valida: " + fecha); 
-            return null;
-        }
-    }
-    
-    private static Date validarFechaNacimiento(String fecha){
-        Date fechaNacimiento = validarFecha(fecha);
-        if(fechaNacimiento != null){
-            Date actual = new Date();
-            int anioNacimiento = fechaNacimiento.getYear();
-            int anioActual = actual.getYear();
-            if(anioActual - anioNacimiento > 17) {
-                return fechaNacimiento;
-            }
-        }
-        System.out.println("Fecha de nacimiento no valido: " + fecha); 
-        return null;
-    }
-
-    private static String validarNombreUsuario(String nombreUsuario) {
-        if(nombreUsuario != null && nombreUsuario.length() > 3){
-            return nombreUsuario;
-        }
-        System.out.println("Nombre de usuario no valida: " + nombreUsuario); 
-        return null;
-    }
-
-    private static String validarEmail(String email) {
-        if(email != null && email.indexOf("@") > 0
-                && (email.endsWith(".com") || email.endsWith(".cl"))){
-            return email;
-        }
-        System.out.println("Email no valido: " + email); 
-        return null;
-    }
-
-    private static String validarContrasena(String contrasena) {
-        if(contrasena != null && contrasena.length() > 5){
-            return contrasena;
-        }
-        System.out.println("Constrasena no valida: " + contrasena);  
-        return null;
-    }
-
-    private static int validarTelefono(String telefono) {
-        if(telefono != null && telefono.length() > 7 && telefono.startsWith("56")){
-            return Integer.parseInt(telefono);
-        }
-        System.out.println("Telefono no valido: " + telefono);       
-        return 0;
     }
 }

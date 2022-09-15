@@ -1,5 +1,7 @@
 package cl.fernandagarayn.dto;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -52,8 +54,8 @@ public class Suscripcion {
         return fechaInicio;
     }
 
-    public void setFechaInicio(Date fechaInicio) {
-        this.fechaInicio = fechaInicio;
+    public void setFechaInicio(String fechaInicio) {
+        this.fechaInicio = validarFecha(fechaInicio);
     }
 
     public int getCorrelativoVenta() {
@@ -78,5 +80,15 @@ public class Suscripcion {
     @Override
     public String toString() {
         return "Suscripcion{" + "numero=" + numero + ", usuario=" + usuario.paraSuscripcion() + ", fechaInicio=" + fechaInicio + ", abonoTotal=" + abonoTotal + ", equipos=" + equipos + ", correlativoVenta=" + correlativoVenta + '}';
+    }
+    
+    private Date validarFecha(String fecha){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+        try {
+            return sdf.parse(fecha);
+        } catch (ParseException ex) {
+            System.out.println("Fecha no valida: " + fecha); 
+            return null;
+        }
     }
 }
