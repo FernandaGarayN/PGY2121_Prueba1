@@ -6,6 +6,7 @@ import cl.fernandagarayn.dto.Usuario;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 /**
  *
@@ -81,7 +82,14 @@ public class Principal {
     private static Date validarFecha(String fecha){
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
         try {
-            return sdf.parse(fecha);
+            Date fechaNacimiento = sdf.parse(fecha);
+            Date actual = new Date();
+            int anioNacimiento = fechaNacimiento.getYear();
+            int anioActual = actual.getYear();
+            if(anioActual - anioNacimiento > 17) {
+                return fechaNacimiento;
+            }
+            return null;
         } catch (ParseException ex) {
             return null;
         }
