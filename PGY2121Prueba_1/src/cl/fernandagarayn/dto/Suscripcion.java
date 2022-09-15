@@ -65,6 +65,9 @@ public class Suscripcion {
     }
     
     public void agregarClubDeportivo(ClubDeportivo club){
+        if(this.equipos == null){
+            this.equipos = "";
+        }
         if(!this.equipos.equals("")){
             this.equipos += "; ";
         }

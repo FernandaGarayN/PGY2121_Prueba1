@@ -17,9 +17,13 @@ public class Principal {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Usuario usuario1 = nuevoUsuario(1000, "David Cogiolle", 16276866, '2', "1990/12/01", "56123456789", "dcog", "david.cogiolle@gmail.com", "Afds22231");
-        Usuario usuario2 = nuevoUsuario(1001, "Gerr Adere", 16796705, '1', "1980/06/03", "56987654321", "ggft", "gerr.adere@live.cl", "G1ovanniGg34");
-        Usuario usuario3 = nuevoUsuario(1002, "Sergio Villanueva", 1, '9', "1970/05/20", "56887755443", "scodiio", "sergio.villanueva@gmail.com", "5534Gato33");
+        Usuario usuario1 = nuevoUsuario(1000, "David Cogiolle", 16276866, '2', "1990/12/01", "56123456", "dcog", "david.cogiolle@gmail.com", "Afds22231");
+        Usuario usuario2 = nuevoUsuario(1001, "Gerr Adere", 16796705, '1', "1980/06/03", "56987654", "ggft", "gerr.adere@live.cl", "G1ovanniGg34");
+        Usuario usuario3 = nuevoUsuario(1002, "Sergio Villanueva", 1, '9', "1970/05/20", "56887755", "scodiio", "sergio.villanueva@gmail.com", "5534Gato33");
+        
+        System.out.println(usuario1);
+        System.out.println(usuario2);
+        System.out.println(usuario3);
         
         int correlativoEquipos = 10;
         String deporte = "Handball";
@@ -107,7 +111,7 @@ public class Principal {
     }
 
     private static String validarNombreUsuario(String nombreUsuario) {
-        if(nombreUsuario != null && nombreUsuario.length() > 4){
+        if(nombreUsuario != null && nombreUsuario.length() > 3){
             return nombreUsuario;
         }
         System.out.println("Nombre de usuario no valida: " + nombreUsuario); 
