@@ -6,7 +6,6 @@ import cl.fernandagarayn.dto.Usuario;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
 /**
  *
@@ -18,9 +17,9 @@ public class Principal {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Usuario usuario1 = nuevoUsuario(1000, "David Cogiolle", 0, 'K', "1990/12/01", 123456789, "dcog", "david.cogiolle@gmail.com", "Afds22231");
-        Usuario usuario2 = nuevoUsuario(1001, "Gerr Adere", 0, 'K', "1980/06/03", 987654321, "ggft", "gerr.adere@live.cl", "G1ovanniGg34");
-        Usuario usuario3 = nuevoUsuario(1002, "Sergio Villanueva", 0, 'K', "1970/05/20", 887755443, "scodiio", "sergio.villanueva@gmail.com", "5534Gato33");
+        Usuario usuario1 = nuevoUsuario(1000, "David Cogiolle", 16276866, '2', "1990/12/01", "56123456789", "dcog", "david.cogiolle@gmail.com", "Afds22231");
+        Usuario usuario2 = nuevoUsuario(1001, "Gerr Adere", 16796705, '1', "1980/06/03", "56987654321", "ggft", "gerr.adere@live.cl", "G1ovanniGg34");
+        Usuario usuario3 = nuevoUsuario(1002, "Sergio Villanueva", 1, '9', "1970/05/20", "56887755443", "scodiio", "sergio.villanueva@gmail.com", "5534Gato33");
         
         int correlativoEquipos = 10;
         String deporte = "Handball";
@@ -29,27 +28,29 @@ public class Principal {
         ClubDeportivo club3 = nuevoClub(correlativoEquipos++, deporte, "Los Cóndores Unidos", "Miguel Garay", 1959, "Chile", "Desde lo alto al sol", 13200, "Amarillo, Naranjo");
         
         int correlativoVenta = 1;
-        
-        Suscripcion suscripcion1 = nuevaSuscripcion(1010, usuario1, new Date(), correlativoVenta++);
+        int folio = 10000;
+        Suscripcion suscripcion1 = nuevaSuscripcion(folio, usuario1, "2020/12/10", correlativoVenta++);
         suscripcion1.agregarClubDeportivo(club1);
         suscripcion1.agregarClubDeportivo(club2);
         
-        Suscripcion suscripcion2 = nuevaSuscripcion(1020, usuario2, new Date(), correlativoVenta++);
+        folio += 10;
+        Suscripcion suscripcion2 = nuevaSuscripcion(folio, usuario2, "2020/10/10", correlativoVenta++);
         suscripcion2.agregarClubDeportivo(club3);
         
-        Suscripcion suscripcion3 = nuevaSuscripcion(1030, usuario3, new Date(), correlativoVenta++);
+        folio += 10;
+        Suscripcion suscripcion3 = nuevaSuscripcion(folio, usuario3, "2021/05/23", correlativoVenta++);
         suscripcion3.agregarClubDeportivo(club3);
         suscripcion3.agregarClubDeportivo(club2);
        
     }
     
-    public static Usuario nuevoUsuario(int ID, String nombreCompleto, int rut, char dv, String fechaNacimiento, int telefono, String nombreUsuario, String email, String contrasena){
+    public static Usuario nuevoUsuario(int ID, String nombreCompleto, int rut, char dv, String fechaNacimiento, String telefono, String nombreUsuario, String email, String contrasena){
         Usuario usuario = new Usuario();
         usuario.setID(ID);
         usuario.setNombreCompleto(nombreCompleto);
         usuario.validarRut(rut, dv);
-        usuario.setFechaNacimiento(validarFecha(fechaNacimiento));
-        usuario.setTelefono(telefono);
+        usuario.setFechaNacimiento(validarFechaNacimiento(fechaNacimiento));
+        usuario.setTelefono(validarTelefono(telefono));
         usuario.setNombreUsuario(validarNombreUsuario(nombreUsuario));
         usuario.setEmail(validarEmail(email));
         usuario.setContrasena(validarContrasena(contrasena));
@@ -70,11 +71,11 @@ public class Principal {
         return club;
     }
     
-    public static Suscripcion nuevaSuscripcion(int numero, Usuario usuario, Date fechaInicio, int correlativo){
+    public static Suscripcion nuevaSuscripcion(int numero, Usuario usuario, String fechaInicio, int correlativo){
         Suscripcion suscripcion = new Suscripcion();
         suscripcion.setNumero(numero);
         suscripcion.setUsuario(usuario);
-        suscripcion.setFechaInicio(fechaInicio);
+        suscripcion.setFechaInicio(validarFecha(fechaInicio));
         suscripcion.setCorrelativoVenta(correlativo);
         return suscripcion;
     }
@@ -82,17 +83,23 @@ public class Principal {
     private static Date validarFecha(String fecha){
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
         try {
-            Date fechaNacimiento = sdf.parse(fecha);
+            return sdf.parse(fecha);
+        } catch (ParseException ex) {
+            return null;
+        }
+    }
+    
+    private static Date validarFechaNacimiento(String fecha){
+        Date fechaNacimiento = validarFecha(fecha);
+        if(fechaNacimiento != null){
             Date actual = new Date();
             int anioNacimiento = fechaNacimiento.getYear();
             int anioActual = actual.getYear();
             if(anioActual - anioNacimiento > 17) {
                 return fechaNacimiento;
             }
-            return null;
-        } catch (ParseException ex) {
-            return null;
         }
+        return null;
     }
 
     private static String validarNombreUsuario(String nombreUsuario) {
@@ -115,5 +122,12 @@ public class Principal {
             return contrasena;
         }
         return null;
+    }
+
+    private static int validarTelefono(String telefono) {
+        if(telefono != null && telefono.length() > 7 && telefono.startsWith("56")){
+            return Integer.parseInt(telefono);
+        }
+        return 0;
     }
 }
