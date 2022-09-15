@@ -77,9 +77,13 @@ public class ClubDeportivo {
     public void setPaisOrigen(String paisOrigen) {
         this.paisOrigen = paisOrigen;
     }
+    
+    public String paraSuscripcion() {
+        return codigo + " $" + valorSuscripcion;
+    }
 
     @Override
     public String toString() {
-        return codigo + " $" + valorSuscripcion;
+        return "ClubDeportivo{" + "codigo=" + codigo + ", nombre=" + nombre + ", nombreFundador=" + nombreFundador + ", anioFundacion=" + anioFundacion + ", paisOrigen=" + paisOrigen + ", lema=" + lema + ", valorSuscripcion=" + valorSuscripcion + ", colores=" + colores + '}';
     }
 }

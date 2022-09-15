@@ -71,7 +71,7 @@ public class Suscripcion {
         if(!this.equipos.equals("")){
             this.equipos += "; ";
         }
-        this.equipos += club.toString();
+        this.equipos += club.paraSuscripcion();
         this.abonoTotal += club.getValorSuscripcion();
     }
 }

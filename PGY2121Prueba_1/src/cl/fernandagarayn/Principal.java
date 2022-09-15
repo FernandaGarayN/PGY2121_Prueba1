@@ -31,6 +31,11 @@ public class Principal {
         ClubDeportivo club2 = nuevoClub(correlativoEquipos++, deporte, "Manquehue City", "Sandra Sanchez", 1962, "Chile", "Vivir y Fuerza", 15100, "Celeste, Blanco");
         ClubDeportivo club3 = nuevoClub(correlativoEquipos++, deporte, "Los Cóndores Unidos", "Miguel Garay", 1959, "Chile", "Desde lo alto al sol", 13200, "Amarillo, Naranjo");
         
+        
+        System.out.println(club1);
+        System.out.println(club2);
+        System.out.println(club3);
+        
         int correlativoVenta = 1;
         int folio = 10000;
         Suscripcion suscripcion1 = nuevaSuscripcion(folio, usuario1, "2020/12/10", correlativoVenta++);
